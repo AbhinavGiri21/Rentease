@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { API_BASE_URL } from "../../config";
 export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const tenantId = localStorage.getItem("userId");
@@ -9,7 +9,7 @@ export default function MyBookings() {
 
     const fetchBookings = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/bookings/tenant/${tenantId}`);
+        const res = await fetch(`${API_BASE_URL}/api/bookings/tenant/${tenantId}`);
         const data = await res.json();
 
         if (Array.isArray(data)) {

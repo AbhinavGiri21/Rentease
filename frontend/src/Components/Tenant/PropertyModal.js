@@ -3,6 +3,7 @@ import { FaTimes, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { toast } from "react-toastify";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { API_BASE_URL } from "../../config";
 
 export default function PropertyModal({ property, onClose, openChat }) {
   const [galleryOpen, setGalleryOpen] = useState(false);
@@ -55,7 +56,7 @@ export default function PropertyModal({ property, onClose, openChat }) {
     setLoading(true);
 
     try {
-      const propertyRes = await fetch(`http://localhost:5000/api/property/${property.property_id}`);
+      const propertyRes = await fetch(`${API_BASE_URL}/api/property/${property.property_id}`);
       if (!propertyRes.ok) throw new Error("Failed to fetch property details.");
 
       const propertyData = await propertyRes.json();
@@ -64,7 +65,7 @@ export default function PropertyModal({ property, onClose, openChat }) {
 
       const totalAmount = unitPrice * duration;
 
-      const res = await fetch("http://localhost:5000/api/payment/create-checkout-session", {
+      const res = await fetch(`${API_BASE_URL}/api/payment/create-checkout-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -100,7 +101,7 @@ export default function PropertyModal({ property, onClose, openChat }) {
   useEffect(() => {
     async function fetchAvailability() {
       try {
-        const res = await fetch(`http://localhost:5000/api/bookings/availability/${property.property_id}`);
+        const res = await fetch(`${API_BASE_URL}/api/bookings/availability/${property.property_id}`);
         const data = await res.json();
 
         const availableDate = new Date(data.availableDate);

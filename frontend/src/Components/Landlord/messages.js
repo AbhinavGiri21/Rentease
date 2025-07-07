@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ChatBox from "../Chatbox/chatbox";
+import { API_BASE_URL } from "../../config";
 
 export default function Messages() {
   const [conversations, setConversations] = useState([]);
@@ -13,7 +14,7 @@ export default function Messages() {
     const fetchConversations = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/messages/summary/${userId}/${role}`
+          `${API_BASE_URL}/api/messages/summary/${userId}/${role}`
         );
         setConversations(res.data?.conversations || []);
       } catch (err) {
@@ -26,7 +27,7 @@ export default function Messages() {
   const handleOpenChat = async (conv) => {
     try {
       await axios.patch(
-        `http://localhost:5000/api/messages/mark-read/${conv.property_id}/${userId}/${role}`
+        `${API_BASE_URL}/api/messages/mark-read/${conv.property_id}/${userId}/${role}`
       );
 
       setSelectedChat({

@@ -10,7 +10,7 @@ import {
 import { MdDashboard } from 'react-icons/md';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { API_BASE_URL } from '../../config';
 export default function Dashboard() {
     const [name, setName] = useState('');
     const [totalUsers, setTotalUsers] = useState(0);
@@ -34,12 +34,12 @@ export default function Dashboard() {
 
     const fetchStats = async () => {
         try {
-            const userRes = await axios.get('http://localhost:5000/api/user/user-stats');
+            const userRes = await axios.get(`${API_BASE_URL}/api/user/user-stats`);
             setTotalLandlords(userRes.data.landlords);
             setTotalTenants(userRes.data.tenants);
             setTotalUsers(userRes.data.landlords + userRes.data.tenants);
 
-            const propertyRes = await axios.get('http://localhost:5000/api/user/property-stats');
+            const propertyRes = await axios.get(`${API_BASE_URL}/api/user/property-stats`);
             setTotalProperties(propertyRes.data.total);
             setPropertyTypes(propertyRes.data.types);
         } catch (error) {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-
+import { API_BASE_URL } from "../../config";
 export default function Payments() {
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +13,7 @@ export default function Payments() {
       return;
     }
 
-    fetch(`http://localhost:5000/api/payment/tenant/${tenantId}`)
+    fetch(`${API_BASE_URL}/api/payment/tenant/${tenantId}`)
       .then((res) => res.json())
       .then((data) => {
         setPayments(data);

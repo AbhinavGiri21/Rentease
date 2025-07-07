@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { API_BASE_URL } from "../../config";
 export default function Notifications() {
     const [messages, setMessages] = useState([]);
 
     const fetchMessages = async () => {
         try {
-            const res = await axios.get("http://localhost:5000/api/notification-messages");
+            const res = await axios.get(`${API_BASE_URL}/api/notification-messages`);
             setMessages(res.data);
         } catch (err) {
             console.error("Failed to fetch messages", err);
@@ -22,7 +22,7 @@ export default function Notifications() {
 
     const handleToggleRead = async (id, is_read) => {
         try {
-            await axios.patch(`http://localhost:5000/api/notification/${id}`, {
+            await axios.patch(`${API_BASE_URL}/api/notification/${id}`, {
                 is_read: !is_read,
             });
             toast.success(`Marked as ${!is_read ? "Read" : "Unread"}`);
@@ -46,8 +46,8 @@ export default function Notifications() {
                         <div
                             key={msg.id}
                             className={`border rounded-xl p-5 shadow-sm transition duration-200 ${msg.is_read
-                                    ? "bg-white border-gray-200"
-                                    : "bg-yellow-50 border-yellow-300"
+                                ? "bg-white border-gray-200"
+                                : "bg-yellow-50 border-yellow-300"
                                 }`}
                         >
                             <div className="flex justify-between items-start">
@@ -66,8 +66,8 @@ export default function Notifications() {
                                     <button
                                         onClick={() => handleToggleRead(msg.id, msg.is_read)}
                                         className={`px-4 py-1 rounded-md text-sm font-medium shadow ${msg.is_read
-                                                ? "bg-blue-500 hover:bg-blue-600 text-white"
-                                                : "bg-yellow-400 hover:bg-yellow-500 text-white"
+                                            ? "bg-blue-500 hover:bg-blue-600 text-white"
+                                            : "bg-yellow-400 hover:bg-yellow-500 text-white"
                                             }`}
                                     >
                                         {msg.is_read ? "Mark as Unread" : "Mark as Read"}

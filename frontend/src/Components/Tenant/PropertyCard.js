@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { API_BASE_URL } from "../../config";
 export default function PropertyCard({ property, onClick }) {
   const [availableDate, setAvailableDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
@@ -7,7 +7,7 @@ export default function PropertyCard({ property, onClick }) {
   useEffect(() => {
     const fetchAvailability = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/bookings/availability/${property.property_id}`);
+        const res = await fetch(`${API_BASE_URL}/api/bookings/availability/${property.property_id}`);
         const data = await res.json();
         if (data?.availableDate) {
           setAvailableDate(new Date(data.availableDate));

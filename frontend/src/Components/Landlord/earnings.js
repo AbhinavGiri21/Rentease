@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { API_BASE_URL } from "../../config";
 export default function LandlordEarnings() {
   const [payments, setPayments] = useState([]);
   const [filteredPayments, setFilteredPayments] = useState([]);
@@ -17,13 +17,13 @@ export default function LandlordEarnings() {
 
     const fetchEarnings = async () => {
       try {
-        const res1 = await fetch(`http://localhost:5000/api/payment/landlord/${landlordId}`);
+        const res1 = await fetch(`${API_BASE_URL}/api/payment/landlord/${landlordId}`);
         const data1 = await res1.json();
         setPayments(data1.payments);
         setFilteredPayments(data1.payments);
         setTotalEarnings(data1.totalEarnings);
 
-        const res2 = await fetch(`http://localhost:5000/api/payment/landlord/${landlordId}/monthly-summary`);
+        const res2 = await fetch(`${API_BASE_URL}/api/payment/landlord/${landlordId}/monthly-summary`);
         const data2 = await res2.json();
 
         const currentMonth = new Date().toISOString().slice(0, 7);

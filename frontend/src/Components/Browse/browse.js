@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropertyCard from './PropertyCard';
 import PropertyModal from './PropertyModal';
-
+import { API_BASE_URL } from '../../config';
 export default function BrowseProperties() {
     const [properties, setProperties] = useState([]);
     const [selectedProperty, setSelectedProperty] = useState(null);
@@ -13,7 +13,7 @@ export default function BrowseProperties() {
     useEffect(() => {
         const fetchProperties = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/property');
+                const res = await axios.get(`${API_BASE_URL}/api/property`);
                 setProperties(res.data);
                 const cities = [...new Set(res.data.map(p => p.city))];
                 setUniqueCities(cities);

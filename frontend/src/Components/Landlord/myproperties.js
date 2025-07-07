@@ -3,7 +3,7 @@ import axios from "axios";
 import PropertyCard from "./PropertyCard";
 import PropertyModal from "./PropertyModal";
 import AddPropertyForm from "./AddProperty";
-
+import { API_BASE_URL } from "../../config";
 export default function MyProperties() {
   const [properties, setProperties] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -17,7 +17,7 @@ export default function MyProperties() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/property/user/${userId}`, {
+        const res = await axios.get(`${API_BASE_URL}/api/property/user/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProperties(res.data);
@@ -32,7 +32,7 @@ export default function MyProperties() {
   const handleAddProperty = async (newProperty) => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/property/add",
+        `${API_BASE_URL}/api/property/add`,
         {
           ...newProperty,
           userId,
@@ -59,7 +59,7 @@ export default function MyProperties() {
 
   const handleDeleteConfirmed = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/property/${propertyToDelete}`, {
+      await axios.delete(`${API_BASE_URL}/api/property/${propertyToDelete}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../../config";
 
 export default function Bookings() {
     const [bookings, setBookings] = useState([]);
@@ -6,7 +7,7 @@ export default function Bookings() {
     useEffect(() => {
         const fetchAllBookings = async () => {
             try {
-                const res = await fetch("http://localhost:5000/api/bookings/all");
+                const res = await fetch(`${API_BASE_URL}/api/bookings/all`);
                 const data = await res.json();
                 if (Array.isArray(data)) {
                     setBookings(data);

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-
+import { API_BASE_URL } from "../../config";
 export default function Transactions() {
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
         const fetchTransactions = async () => {
             try {
-                const res = await fetch("http://localhost:5000/api/payment/all");
+                const res = await fetch(`${API_BASE_URL}/api/payment/all`);
                 const data = await res.json();
                 setTransactions(data);
             } catch (err) {

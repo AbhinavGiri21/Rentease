@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 
 export default function PaymentSuccess() {
     const [status, setStatus] = useState("Verifying payment...");
@@ -31,7 +32,7 @@ export default function PaymentSuccess() {
 
         const verifyPayment = async () => {
             try {
-                const paymentRes = await axios.get(`http://localhost:5000/api/payment/status/${txnId}`);
+                const paymentRes = await axios.get(`${API_BASE_URL}/api/payment/status/${txnId}`);
 
                 if (paymentRes.data.success && paymentRes.data.code === "PAYMENT_SUCCESS") {
                     setStatus("Payment Successful and Booking Confirmed!");

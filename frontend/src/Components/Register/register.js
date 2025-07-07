@@ -3,7 +3,7 @@ import { FaUser, FaEnvelope, FaLock, FaPhone } from 'react-icons/fa';
 import RoleToggle from '../RoleToggle/roletoggle';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { API_BASE_URL } from '../../config';
 export default function Register() {
     const navigate = useNavigate();
     const [role, setRole] = useState('tenant');
@@ -31,7 +31,7 @@ export default function Register() {
             phone.length >= 8
         ) {
             try {
-                const res = await fetch('http://localhost:5000/api/auth/register', {
+                const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

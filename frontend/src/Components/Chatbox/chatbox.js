@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { FaTimes } from "react-icons/fa";
-
+import { API_BASE_URL } from "../../config";
 export default function ChatBox({ senderId, receiverId, propertyId, onClose }) {
     const [messages, setMessages] = useState([]);
     const [newMsg, setNewMsg] = useState("");
@@ -17,7 +17,7 @@ export default function ChatBox({ senderId, receiverId, propertyId, onClose }) {
 
             try {
                 const res = await fetch(
-                    `http://localhost:5000/api/messages/conversation/${tenantId}/${landlordId}/${propertyId}`
+                    `${API_BASE_URL}/api/messages/conversation/${tenantId}/${landlordId}/${propertyId}`
                 );
                 const data = await res.json();
 
@@ -27,7 +27,7 @@ export default function ChatBox({ senderId, receiverId, propertyId, onClose }) {
                     data.messages
                         .filter((msg) => msg.sender_id !== senderId && !msg.is_read)
                         .forEach((msg) => {
-                            fetch(`http://localhost:5000/api/messages/read/${msg.id}`, {
+                            fetch(`${API_BASE_URL}/api/messages/read/${msg.id}`, {
                                 method: "PATCH",
                             }).catch(err => {
                                 console.error(`Failed to mark message ${msg.id} as read:`, err);
@@ -70,7 +70,7 @@ export default function ChatBox({ senderId, receiverId, propertyId, onClose }) {
         setNewMsg("");
 
         try {
-            const res = await fetch("http://localhost:5000/api/messages/send", {
+            const res = await fetch(`${API_BASE_URL}/api/messages/send`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),

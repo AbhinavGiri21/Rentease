@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaSearch } from "react-icons/fa";
-
+import { API_BASE_URL } from "../../config";
 export default function Users() {
     const [tenants, setTenants] = useState([]);
     const [landlords, setLandlords] = useState([]);
@@ -15,8 +15,8 @@ export default function Users() {
     const fetchUsers = async () => {
         try {
             const [tenantRes, landlordRes] = await Promise.all([
-                axios.get("http://localhost:5000/api/user/tenants"),
-                axios.get("http://localhost:5000/api/user/landlords"),
+                axios.get(`${API_BASE_URL}/api/user/tenants`),
+                axios.get(`${API_BASE_URL}/api/user/landlords`),
             ]);
             setTenants(tenantRes.data);
             setLandlords(landlordRes.data);
@@ -27,7 +27,7 @@ export default function Users() {
 
     const toggleBlock = async (email, role, currentBlocked) => {
         try {
-            await axios.patch("http://localhost:5000/api/user/block", {
+            await axios.patch(`${API_BASE_URL}/api/user/block`, {
                 email,
                 role,
                 blocked: !currentBlocked,

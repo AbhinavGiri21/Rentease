@@ -3,6 +3,7 @@ import axios from "axios";
 import {
   FaLock, FaCheckCircle, FaEye, FaEyeSlash, FaTrashAlt
 } from "react-icons/fa";
+import { API_BASE_URL } from "../../config";
 
 export default function ProfileSettings() {
   const [profile, setProfile] = useState({
@@ -26,14 +27,14 @@ export default function ProfileSettings() {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  const API_BASE = "http://localhost:5000/api/user";
+  const API_BASE = `${API_BASE_URL}/api/user`;
   const email = localStorage.getItem("email");
   const role = localStorage.getItem("role");
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`${API_BASE}/profile`, {
+        const res = await axios.get(`${API_BASE_URL}/profile`, {
           params: { email, role }
         });
         const data = res.data;

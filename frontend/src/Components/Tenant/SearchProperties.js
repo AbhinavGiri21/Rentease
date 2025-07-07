@@ -3,7 +3,7 @@ import axios from 'axios';
 import PropertyCard from './PropertyCard';
 import PropertyModal from './PropertyModal';
 import ChatBox from '../Chatbox/chatbox';
-
+import { API_BASE_URL } from '../../config';
 export default function SearchProperties() {
   const [properties, setProperties] = useState([]);
   const [modalProperty, setModalProperty] = useState(null);
@@ -15,7 +15,7 @@ export default function SearchProperties() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/property/all');
+        const res = await axios.get(`${API_BASE_URL}/api/property/all`);
         setProperties(res.data);
         const cities = [...new Set(res.data.map(p => p.city))];
         setUniqueCities(cities);

@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { API_BASE_URL } from "../../config";
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,7 +21,7 @@ const Contact = () => {
       toast.dismiss("contact-success");
       toast.dismiss("contact-error");
 
-      await axios.post("http://localhost:5000/api/notification", form);
+      await axios.post(`${API_BASE_URL}/api/notification`, form);
 
       toast.success("Message sent successfully!", {
         position: "top-right",
