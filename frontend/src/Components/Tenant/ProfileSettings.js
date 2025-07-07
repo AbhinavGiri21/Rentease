@@ -27,14 +27,15 @@ export default function ProfileSettings() {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  const API_BASE = `${API_BASE_URL}:5000/api/user`;
+  const API_BASE = `${API_BASE_URL}/api/user`;
   const email = localStorage.getItem("email");
   const role = localStorage.getItem("role");
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`${API_BASE_URL}/profile`, {
+        setIsLoading(true);
+        const res = await axios.get(`${API_BASE}/profile`, {
           params: { email, role }
         });
         const data = res.data;
@@ -52,7 +53,7 @@ export default function ProfileSettings() {
       }
     };
     fetchProfile();
-  }, [email, role]);
+  }, [email, role, API_BASE]);
 
   const handleProfileChange = (e) => {
     const { name, value } = e.target;

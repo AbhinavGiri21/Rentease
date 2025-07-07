@@ -34,7 +34,8 @@ export default function ProfileSettings() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`${API_BASE_URL}/profile`, {
+        setIsLoading(true);
+        const res = await axios.get(`${API_BASE}/profile`, {
           params: { email, role }
         });
         const data = res.data;
@@ -52,7 +53,7 @@ export default function ProfileSettings() {
       }
     };
     fetchProfile();
-  }, [email, role]);
+  }, [email, role, API_BASE]);
 
   const handleProfileChange = (e) => {
     const { name, value } = e.target;

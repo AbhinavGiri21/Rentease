@@ -6,12 +6,12 @@ export default function LandlordEarnings() {
   const [totalEarnings, setTotalEarnings] = useState(0);
   const [thisMonthEarnings, setThisMonthEarnings] = useState(0);
   const [filters, setFilters] = useState({ propertyId: "", month: "" });
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const landlordId = localStorage.getItem("userId");
 
   useEffect(() => {
     if (!landlordId) {
-      setLoading(false);
+      setIsLoading(false);
       return;
     }
 
@@ -32,7 +32,7 @@ export default function LandlordEarnings() {
       } catch (err) {
         console.error("Error fetching earnings:", err);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
@@ -55,8 +55,13 @@ export default function LandlordEarnings() {
     setFilteredPayments(filtered);
   }, [filters, payments]);
 
-  if (loading) return <div className="p-4">Loading earnings...</div>;
-
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-[#F9FAFB]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-sky-500"></div>
+      </div>
+    );
+  }
   return (
     <div className="p-6 min-h-screen">
       <h1 className="text-3xl font-bold text-[#1F2937] mb-6 text-center md:text-left">

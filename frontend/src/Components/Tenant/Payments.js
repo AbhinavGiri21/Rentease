@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { API_BASE_URL } from "../../config";
+
 export default function Payments() {
   const [payments, setPayments] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const tenantId = localStorage.getItem("userId");
 
   useEffect(() => {
     if (!tenantId) {
-      setLoading(false);
+      setIsLoading(false);
       return;
     }
 
@@ -17,13 +18,22 @@ export default function Payments() {
       .then((res) => res.json())
       .then((data) => {
         setPayments(data);
-        setLoading(false);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.error("Failed to fetch payments:", err);
-        setLoading(false);
+        setIsLoading(false);
       });
   }, [tenantId]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-[#F9FAFB]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-sky-500"></div>
+      </div>
+    );
+  }
+
 
   function downloadInvoice(payment) {
     const booking = payment.booking || {};
@@ -72,9 +82,8 @@ export default function Payments() {
 
     doc.save(`invoice_${payment.payment_id}.pdf`);
   }
-
-  if (loading) {
-    return <div className="p-4">Loading payments...</div>;
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
   if (!tenantId) {

@@ -56,7 +56,7 @@ export default function Messages() {
 
       <div className="w-full max-w-2xl">
         {conversations.length === 0 ? (
-          <p className="text-center text-gray-500">No conversations found.</p>
+          <p className="text-center md:text-left text-gray-500">No conversations found.</p>
         ) : (
           <div className="flex flex-col gap-4">
             {conversations.map((conv) => (
