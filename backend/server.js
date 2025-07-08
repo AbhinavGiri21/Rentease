@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const config = require("./config");
 
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
@@ -13,7 +14,16 @@ const paymentRoutes = require("./routes/payment");
 const { initializeTables } = require('./models/user');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || config.allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+}));
+
 app.use(express.json());
 
 app.use('/api/property', propertyRoutes);
