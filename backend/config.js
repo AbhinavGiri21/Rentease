@@ -7,6 +7,6 @@ module.exports = {
     frontendUrl: FRONTEND_URL,
     allowedOrigins: [
         "http://localhost:3000",
-        "https://rentease-five.vercel.app/",
+        "https://rentease-five.vercel.app",
     ],
 };
