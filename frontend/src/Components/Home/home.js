@@ -1,4 +1,6 @@
 import FAQSection from "../Faqs/faq";
+import { Link } from "react-router-dom";
+
 const Home = () => {
   return (
     <div className="bg-gray-50 text-gray-800 mt-40">
@@ -12,12 +14,16 @@ const Home = () => {
             RentEase connects landlords with tenants in a secure, interactive platform.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-xl transition">
-              Browse Properties
-            </button>
-            <button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-xl transition">
-              List Your Property
-            </button>
+            <Link to="/browse">
+              <button className="bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-xl transition">
+                Browse Properties
+              </button>
+            </Link>
+            <Link to="/login">
+              <button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-xl transition">
+                List Your Property
+              </button>
+            </Link>
           </div>
         </div>
       </section>

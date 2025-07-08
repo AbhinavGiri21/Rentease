@@ -14,7 +14,7 @@ const faqs = [
   {
     question: "How does booking confirmation work?",
     answer:
-      "Once a tenant submits a booking request, the landlord is notified and must approve it. Upon approval, the tenant is notified and payment is processed.",
+      "Once a tenant selects a move-in date and completes the payment, the booking is confirmed."
   },
   {
     question: "Is RentEase secure for payments?",
@@ -40,11 +40,10 @@ export default function FAQSection() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className={`border rounded-2xl shadow-sm transition duration-200 cursor-pointer ${
-                activeIndex === index
+              className={`border rounded-2xl shadow-sm transition duration-200 cursor-pointer ${activeIndex === index
                   ? "bg-white border-sky-500"
                   : "bg-white border-gray-200"
-              }`}
+                }`}
               onClick={() => toggleFAQ(index)}
             >
               <div className="p-4 md:p-5 hover:bg-sky-100 rounded-2xl transition-colors duration-300">
