@@ -1,8 +1,18 @@
 version: "3.9"
 
 services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: abcd
+      POSTGRES_DB: rentease
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
   backend:
     build: ./backend
+    container_name: rentease-backend
     ports:
       - "5000:5000"
     environment:
@@ -13,22 +23,17 @@ services:
       - ./backend/.env
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        - REACT_APP_API_BASE_URL=http://backend:5000
+    container_name: rentease-frontend
     ports:
       - "3000:80"
-    environment:
-      - REACT_APP_API_BASE_URL=http://backend:5000
     env_file:
       - ./frontend/.env
-
-  db:
-    image: postgres:14
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: abcd
-      POSTGRES_DB: rentease
-    volumes:
-      - db-data:/var/lib/postgresql/data
+    depends_on:
+      - backend
 
 volumes:
   db-data:
