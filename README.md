@@ -81,17 +81,53 @@ git clone https://github.com/yourusername/rentease.git
 cd rentease
 ```
 
-Start the Frontend
+### ⚙️ Run Locally on your system
+▶️ Start the Frontend
 ```
 cd frontend
 npm install
 npm start
+Runs on http://localhost:3000
 ```
-
-
-Start the Backend
+▶️ Start the Backend
 ```
 cd backend
 npm install
 nodemon server.js
 ```
+
+### 🚀 Run with Docker 
+
+Make sure you have Docker and Docker Compose installed, then run:
+```
+docker-compose up --build
+This will:
+
+Start the frontend on http://localhost:3000
+
+Start the backend on http://localhost:5000
+
+Start a PostgreSQL database with persistence
+```
+
+### ⚠️ Environment Configuration
+```
+Create a .env file in the backend/ folder with the following:
+
+DATABASE_URL for different environments
+
+DATABASE_URL=postgresql://postgres:abcd@db:5432/rentease
+ → Use this when running with Docker Compose (internal Docker network)
+
+DATABASE_URL=postgresql://postgres:abcd@localhost:5432/rentease
+ → Use this for local development without Docker
+
+DATABASE_URL=postgresql://<username>:<password>@<host>/<database>
+ → Use this on Render deployment (Render-managed Postgres)
+
+JWT_SECRET=jwt_secret_key
+STRIPE_SECRET_KEY=stripe_secret_key
+FRONTEND_URL=your_frontend_url
+```
+
+
