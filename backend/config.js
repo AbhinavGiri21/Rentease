@@ -7,6 +7,6 @@ module.exports = {
     frontendUrl: FRONTEND_URL,
     allowedOrigins: [
         "http://localhost:3000",
-        "https://rentease-1-y04p.onrender.com",
+        "https://rentease-1-rxvx.onrender.com",
     ],
 };
