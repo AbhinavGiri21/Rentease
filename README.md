@@ -68,8 +68,6 @@
 - JWT for authentication
 - Stripe SDK for payments
 - Cloudinary SDK for image uploads
-- Firebase Firestore (optional features like notifications/chat backup)
-
 ---
 
 ## 🔗 Setup Instructions
